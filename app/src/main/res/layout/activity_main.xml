@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+
+    tools:context="com.mitra.hr.barcode.MainActivity">
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/email_login_form"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titulo"
+                    android:layout_gravity="center_horizontal"/>
+
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="300dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content" >
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:hint="Contraseña"
+                        android:inputType="textPassword"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true" >
+
+                    </EditText>
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="49dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/password"
+                        android:layout_alignRight="@+id/password"
+                        android:layout_alignTop="@+id/password"
+                        android:layout_marginBottom="6dp"
+                        android:padding="5dp"
+
+                        android:src="@mipmap/ic_see" />
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/email_sign_in_button"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/buttoncorner"
+                    android:text="@string/action_sign_in"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></View>
+                <ImageView
+                    android:layout_marginTop="150dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/itbclogo"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/grey"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/Powered"/>
+
+            </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>
