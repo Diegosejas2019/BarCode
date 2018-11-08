@@ -2,6 +2,7 @@ package com.mitra.hr.barcode;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,10 +18,14 @@ import android.util.Log;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
+
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
@@ -38,12 +43,19 @@ public class HomeActivity extends AppCompatActivity {
     //private static String url_Accesos = "http://10.0.2.2/api/Acceses/HasAccess";
     private static String url_Accesos = "https://www.mitra.com.ar/barcode/api/Acceses/HasAccess";
     private static String url = "https://www.mitra.com.ar/barcode/api/enterprises/getenterprises/";
+    private static String url_Servicio = "https://www.mitra.com.ar/pharma/api/Employees/";
     private ProgressDialog pDialog;
     JSONParser jParser = new JSONParser();
-    Button btnRegistrar;
-    Button btnLeer;
+    Button btnRegistrar,btnLeer,btnAcceder;
     TextView txtTitulo;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
+    private static final String TAG_SUCCESS = "StatusCode";
+    private static final String TAG_User = "EUS";
+    private static final String TAG_Password = "EPS";
+    private static final String TAG_Mensaje = "Message";
+    private String mEmail;
+    private String mPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +80,8 @@ public class HomeActivity extends AppCompatActivity {
         int value = -1; // or other values
         if(b != null){
             IDUser = b.getInt("key");
+            mEmail = b.getString("Email");
+            mPassword = b.getString("Password");
         }
 
         new ObtenerEmpresas().execute();
@@ -89,17 +103,72 @@ public class HomeActivity extends AppCompatActivity {
         btnRegistrar.setVisibility(View.GONE);
         btnLeer = (Button)  findViewById(R.id.btnLeerID);
         btnLeer.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                Intent myIntent = new Intent(HomeActivity.this, ReadCodeActivity.class);
-                                                myIntent.addFlags(FLAG_ACTIVITY_PREVIOUS_IS_TOP);
-                                                myIntent.putExtra("key", IDUser); //Optional parameters
-                                                myIntent.putExtra("idEnterprise", IDEnterprise);
-                                                HomeActivity.this.startActivity(myIntent);
-                                            }
-                                        });
+                @Override
+                public void onClick(View v) {
+                    Intent myIntent = new Intent(HomeActivity.this, ReadCodeActivity.class);
+                    myIntent.addFlags(FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+                    myIntent.putExtra("key", IDUser); //Optional parameters
+                    myIntent.putExtra("idEnterprise", IDEnterprise);
+                    HomeActivity.this.startActivity(myIntent);
+                }
+                });
+        btnLeer.setVisibility(View.GONE);
+
+        btnAcceder = (Button)  findViewById(R.id.btnAcceder);
+        btnAcceder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String mensaje ="";
+                try {
+                    mensaje = new HomeActivity.Encriptar().execute(mEmail,mPassword).get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                String url = "http://itbcapps.com/new/hr/loginhr.aspx?" + mensaje;
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browserIntent);
+            }
+        });
         btnLeer.setVisibility(View.GONE);
         //btnLeer.setVisibility(View.VISIBLE);
+    }
+
+    class Encriptar extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        protected String doInBackground(String... args) {
+            String User = args[0];
+            String Password = args[1];
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+            nameValuePairs.add(new BasicNameValuePair("EUS", User));
+            nameValuePairs.add(new BasicNameValuePair("EPS", Password));
+
+            JSONObject json = jParser.makeHttpRequest(url_Servicio + "EncryptData", "POST", nameValuePairs);
+            String Resultado="";
+            try {
+                if(json != null){
+                    int success = json.getInt(TAG_SUCCESS);
+                    if (success == 200) {
+                        Resultado = "eus=" + json.getString(TAG_User);
+                        Resultado = Resultado + "&eps=" + json.getString(TAG_Password);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Resultado = e.getMessage();
+            }
+            Resultado = Normalizer.normalize(Resultado, Normalizer.Form.NFD);
+            Resultado = Resultado.replaceAll("[^\\p{ASCII}]", "");
+            return Resultado;
+        }
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after getting all products
+            super.onPostExecute(file_url);
+        }
     }
 
     class ObtenerEmpresas extends AsyncTask<String, String, String> {

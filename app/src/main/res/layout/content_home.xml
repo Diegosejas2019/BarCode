@@ -64,7 +64,20 @@
                     />
 
                 <Button
-                    android:id="@+id/btnLeerID"
+                android:id="@+id/btnLeerID"
+                android:textColor="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editText2"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/buttoncorner"
+                android:text="Leer Presencia"
+                />
+
+                <Button
+                    android:id="@+id/btnAcceder"
                     android:textColor="@color/colorWhite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,9 +85,9 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/buttoncorner"
-                    android:text="Leer Presencia"
-                     />
+                    android:background="@color/colorAccent"
+                    android:text="ACCEDER AL PORTAL"
+                    />
                 <ImageView
                     android:layout_marginTop="100dp"
                     android:layout_width="wrap_content"

@@ -232,7 +232,9 @@ public class MainActivity extends AppCompatActivity  {
             if (success) {
                 Intent myIntent = new Intent(MainActivity.this, HomeActivity.class);
                 myIntent.addFlags(FLAG_ACTIVITY_PREVIOUS_IS_TOP);
-                myIntent.putExtra("key", IDuser); //Optional parameters
+                myIntent.putExtra("key", IDuser);
+                myIntent.putExtra("Email", mEmail);
+                myIntent.putExtra("Password", mPassword);
                 MainActivity.this.startActivity(myIntent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
