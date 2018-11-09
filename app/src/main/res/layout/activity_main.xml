@@ -34,8 +34,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="10dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp"
+
+                    android:layout_marginTop="20dp"
                     android:layout_height="wrap_content"
                     android:text="@string/titulo"
                     android:layout_gravity="center_horizontal"/>
@@ -46,6 +48,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
@@ -54,6 +57,7 @@
                     xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="300dp"
                     android:orientation="vertical"
+                    android:layout_marginTop="10dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="wrap_content" >
 
@@ -92,20 +96,43 @@
                     android:text="@string/action_sign_in"
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/crearCuenta"
+                    android:layout_width="250dp"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Crea aqui tu cuenta en ITBC"
+                    android:layout_gravity="center_horizontal"/>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"></View>
                 <ImageView
-                    android:layout_marginTop="150dp"
+                    android:layout_marginTop="40dp"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/itbclogo"/>
                 <TextView
+                    android:layout_width="250dp"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/secondary_text"
+                    android:text="Herramientas digitales para empresas"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/secondary_text"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:text="@string/Powered"/>

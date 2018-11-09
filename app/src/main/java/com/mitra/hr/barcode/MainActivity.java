@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -32,7 +33,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
 import static com.mitra.hr.barcode.HomeActivity.MY_PREFS_NAME;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     JSONParser jParser = new JSONParser();
     //private static String url_Barcode = "http://10.0.2.2/api/login/AuthenticateUser";
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity  {
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
+    private TextView crearCuenta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,9 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             }
         });
+
+        crearCuenta = findViewById(R.id.crearCuenta);
+        crearCuenta.setOnClickListener(this);
     }
 
     public boolean isConnectedToInternet(){
@@ -172,13 +177,19 @@ public class MainActivity extends AppCompatActivity  {
         return password.length() > 4;
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id)
+        {
+            case R.id.crearCuenta:
+                Intent myIntent = new Intent(MainActivity.this, RegisterUserActivity.class);
+                myIntent.addFlags(FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+                MainActivity.this.startActivity(myIntent);
+                break;
+        }
+    }
+
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
