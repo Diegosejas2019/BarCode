@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal"
+    tools:context=".RegisterUserActivity"
+    tools:showIn="@layout/activity_register_user">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="30dp">
+
+
+
+            <LinearLayout
+                android:id="@+id/email_login_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="#0072BB"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="Creá tu cuenta de acceso"
+                    android:layout_gravity="center_horizontal"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="300dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/nombreUusario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nombre de usuario"
+                        android:maxLines="1"
+                        />
+
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="300dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="E-mail de usuario"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <Spinner
+                    android:dropDownWidth="244dp"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:id="@+id/spinner"
+                    android:autofillHints="Selecione empresa"
+                    android:backgroundTint="@color/celeste"
+                    android:layout_gravity="center_horizontal"
+                    android:textColorHint="@color/zxing_custom_result_view"
+                    android:layout_below="@+id/imageButton"/>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="300dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content" >
+
+                    <EditText
+                        android:id="@+id/contraseña"
+                        android:hint="Contraseña"
+                        android:inputType="textPassword"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true" >
+
+                    </EditText>
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/contraseña"
+                        android:layout_alignRight="@+id/contraseña"
+                        android:layout_alignBottom="@+id/contraseña"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:padding="5dp"
+                        android:src="@mipmap/ic_see" />
+
+                </RelativeLayout>
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="300dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content" >
+
+                    <EditText
+                        android:id="@+id/reIngresoContraseña"
+                        android:hint="Reingresá tu contraseña"
+                        android:inputType="textPassword"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true" >
+
+                    </EditText>
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_alignTop="@+id/reIngresoContraseña"
+                        android:layout_alignBottom="@+id/reIngresoContraseña"
+                        android:layout_alignRight="@+id/reIngresoContraseña"
+                        android:src="@mipmap/ic_see" />
+
+                </RelativeLayout>
+                <Button
+                    android:id="@+id/email_sign_in_button"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:background="#4a89dc"
+                    android:text="Crear Cuenta"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_marginTop="2dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="0dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/itbclogo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/grey"
+                android:layout_marginTop="0dp"
+                android:text="@string/Powered"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>
