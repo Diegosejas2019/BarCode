@@ -40,7 +40,8 @@
         </activity>
         <activity android:name=".RegisterUserActivity"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="ITBC"
+        />
         <activity android:name=".Successful"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>

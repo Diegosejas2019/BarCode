@@ -65,6 +65,8 @@ public class RegisterUserActivity extends AppCompatActivity {
     JSONObject jsonobject;
     private static String url_Accesos = "https://www.mitra.com.ar/barcode/api/Acceses/HasAccess";
     private static String url_enterprises = "https://www.mitra.com.ar/barcode/api/enterprises/getenterprisesgroup";
+    private static String url_test = "https://www.mitra.com.ar/barcode/api/enterprises/getenterprises/96/5";
+
     Button btnRegistrar,btnAcceder;
     TextView txtTitulo;
 
@@ -75,7 +77,9 @@ public class RegisterUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        // getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.contraseña);
         mRePasswordView = (EditText) findViewById(R.id.reIngresoContraseña);
@@ -138,6 +142,8 @@ public class RegisterUserActivity extends AppCompatActivity {
                 }
             }
         });
+
+        new ObtenerEmpresas().execute();
     }
 
     class ObtenerEmpresas extends AsyncTask<String, String, String> {
@@ -158,7 +164,7 @@ public class RegisterUserActivity extends AppCompatActivity {
             ListaEnterprises = new ArrayList<String>();
             List params = new ArrayList();
 
-            JSONObject json = jParser.makeHttpRequest(url_enterprises, "GET", params);
+            JSONObject json = jParser.makeHttpRequest(url_test, "GET", params);
             ListaEnterprises.add("Seleccione..");
             EnterPrises listaEnterprises1 = new EnterPrises();
 
