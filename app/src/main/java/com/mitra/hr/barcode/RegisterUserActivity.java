@@ -43,7 +43,7 @@ import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
 public class RegisterUserActivity extends AppCompatActivity {
 
     JSONParser jParser = new JSONParser();
-    private static String url_Servicio = "https://www.mitra.com.ar/pharma/api/login/";
+    private static String url_Servicio = "https://www.mitra.com.ar/barcode/api/login/";
     //private static String url_Servicio = "http://10.0.2.2/api/login/";
     private static final String TAG_SUCCESS = "StatusCode";
     private static final String TAG_USER = "UserName";
@@ -57,7 +57,7 @@ public class RegisterUserActivity extends AppCompatActivity {
     private final Pattern hasUppercase = Pattern.compile("[A-Z]");
     private final Pattern hasLowercase = Pattern.compile("[a-z]");
     private final Pattern hasNumber = Pattern.compile("\\d");
-    private String mItem;
+    private String mItem = "";
     Spinner spinner;
     ArrayList<EnterPrises> enterprises;
     ArrayList<String> ListaEnterprises;
@@ -138,7 +138,7 @@ public class RegisterUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isConnectedToInternet()) {
-                    attemptLogin();
+                        attemptLogin();
                 }
             }
         });
@@ -164,7 +164,7 @@ public class RegisterUserActivity extends AppCompatActivity {
             ListaEnterprises = new ArrayList<String>();
             List params = new ArrayList();
 
-            JSONObject json = jParser.makeHttpRequest(url_test, "GET", params);
+            JSONObject json = jParser.makeHttpRequest(url_enterprises, "GET", params);
             ListaEnterprises.add("Seleccione..");
             EnterPrises listaEnterprises1 = new EnterPrises();
 
@@ -206,7 +206,8 @@ public class RegisterUserActivity extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int position, long arg3) {
                     if(position > 0){
-                        mItem = spinner.getItemAtPosition(position).toString();
+                        //mItem = spinner.getItemAtPosition(position).toString();
+                        mItem = enterprises.get(position).getID().toString();
                     }
                     else {
                         Toast.makeText(RegisterUserActivity.this, "Debe Seleccionar una empresa.", Toast.LENGTH_LONG).show();
@@ -290,7 +291,13 @@ public class RegisterUserActivity extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
-            new UserAddTask(email, password, usuario).execute();
+            if (!mItem.isEmpty())
+            {
+                new UserAddTask(email, password, usuario).execute();
+            }
+            else{
+                Toast.makeText(RegisterUserActivity.this,"Debe seleccionar una empresa", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -329,6 +336,11 @@ public class RegisterUserActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            pDialog = new ProgressDialog(RegisterUserActivity.this);
+            pDialog.setMessage("Registrando usuario...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
         }
 
         private final String mEmail;
@@ -348,7 +360,7 @@ public class RegisterUserActivity extends AppCompatActivity {
             nameValuePairs.add(new BasicNameValuePair("Email", mEmail));
             nameValuePairs.add(new BasicNameValuePair("Password", mPassword));
             nameValuePairs.add(new BasicNameValuePair("UserName", mUsuario));
-
+            nameValuePairs.add(new BasicNameValuePair("idGroupService", mItem));
 
             JSONObject json = jParser.makeHttpRequest(url_Servicio + "RegisterUser", "POST", nameValuePairs);
 
@@ -376,10 +388,7 @@ public class RegisterUserActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            if(progressDialog != null && progressDialog.isShowing())
-            {
-                progressDialog.dismiss();
-            }
+            pDialog.dismiss();
             if (success) {
                 Intent myIntent = new Intent(RegisterUserActivity.this, Successful.class);
                 RegisterUserActivity.this.startActivity(myIntent);
@@ -390,6 +399,12 @@ public class RegisterUserActivity extends AppCompatActivity {
                     Toast.makeText(RegisterUserActivity.this,"Error al procesar la operación", Toast.LENGTH_LONG).show();
                 }
             }
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            pDialog.dismiss();
         }
     }
 
