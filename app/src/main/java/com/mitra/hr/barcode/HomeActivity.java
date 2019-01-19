@@ -289,7 +289,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         if (btnRegistrar.getVisibility() == View.GONE && btnLeer.getVisibility() == View.GONE){
-            Toast.makeText(HomeActivity.this,"No posee accesos",Toast.LENGTH_LONG).show();
+            //Toast.makeText(HomeActivity.this,"No posee accesos",Toast.LENGTH_LONG).show();
         }
     }
 
